@@ -1,14 +1,15 @@
 package com.jhonatasrm.playerdemusica;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuff;
@@ -21,35 +22,31 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private SeekBar seekBar;
     private TextView autor;
+    private ImageView capaAlbum;
     private  TextView titulo;
     private int i;
-    int[] musicas = new int[]{R.raw.back_in_black, R.raw.here_i_go_again, R.raw.high_way_to_hell, R.raw.stairway_to_heaven, R.raw.thunderstruck };
-    String[] banda = new String[]{"AC/DC", "White Snake","AC/DC","Led Zeppelin","AC/DC"};
-    String[] nomeMusica = new String[]{"Back in Black","Here I Go Again","High Way To Hell","Stairway to Heaven","AC/DC"};
-    int[] cover = new int[]{R.drawable.ac_dc,R.drawable.white_snake, R.drawable.ac_dc, R.drawable.led_zeppelin,R.drawable.ac_dc};
+    int[] musicas = new int[]{R.raw.back_in_black, R.raw.here_i_go_again, R.raw.high_way_to_hell, R.raw.stairway_to_heaven, R.raw.thunderstruck};
+    String[] banda = new String[]{"AC/DC", "White Snake", "AC/DC", "Led Zeppelin", "AC/DC"};
+    String[] nomeMusica = new String[]{"Back In Black", "Here I go Again", "Highway To Hell", "Stairway to Heaven", "Thunderstruck"};
+    int[] capa = new int[]{R.drawable.ac_dc,R.drawable.white_snake, R.drawable.ac_dc, R.drawable.led_zeppelin,R.drawable.ac_dc};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initNavigationToolbar();
+        init();
 
-        final AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar_settings);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        setSupportActionBar(toolbar);
-
+        final AudioManager amanager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         mediaPlayer = MediaPlayer.create(this, musicas[i]);
+        int volume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
         seekBar = findViewById(R.id.seekbar_audio);
         i = 0;
 
         seekBar.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY));
         seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
-        int volume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
         seekBar.setProgress(volume);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -64,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-
-        init();
     }
 
 
@@ -74,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
         titulo = findViewById(R.id.titulo);
         autor.setText(banda[i]);
         titulo.setText(nomeMusica[i]);
+        capaAlbum = findViewById(R.id.cover);
+    }
+
+    public void initNavigationToolbar(){
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar_settings);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -118,28 +123,45 @@ public class MainActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     return true;
                 case R.id.avancar:
-                    i++;
-                    mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
-                    autor.setText(banda[i]);
-                    titulo.setText(nomeMusica[i]);
+                    avancar();
                     return true;
                 case R.id.pause:
                     mediaPlayer.pause();
                     return true;
                 case R.id.voltar:
-                    if(i == 0) {
-                        mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
-                        autor.setText(banda[i]);
-                        titulo.setText(nomeMusica[i]);
-                    }else{
-                        i--;
-                        mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
-                        autor.setText(banda[i]);
-                        titulo.setText(nomeMusica[i]);
-                    }
+                    voltar();
                     return true;
             }
-            return false;
+            return onNavigationItemSelected(item);
         }
     };
+
+    public void voltar(){
+        mediaPlayer.stop();
+        if(i == 0) {
+            mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+            autor.setText(banda[i]);
+            titulo.setText(nomeMusica[i]);
+            capaAlbum.setImageResource(capa[i]);
+        }else{
+            i--;
+            mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+            autor.setText(banda[i]);
+            titulo.setText(nomeMusica[i]);
+            capaAlbum.setImageResource(capa[i]);
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void avancar(){
+        mediaPlayer.stop();
+        i++;
+        if(i == autor.length()){
+            i = 0;
+        }
+        mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+        autor.setText(banda[i]);
+        titulo.setText(nomeMusica[i]);
+        capaAlbum.setImageResource(capa[i]);
+    }
 }
