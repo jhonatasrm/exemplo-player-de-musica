@@ -14,7 +14,7 @@ Android 4.4 KitKat
 * Botão para uma Activity com mais informações a respeito da música
 
 
-![player_de_musica](screenshot.jpg)
+<img src="screenshot.jpg" alt="drawing" width="200" height="400"/>
 
-### License
-This repository is available under the [Mozilla Public License, version 2.0](https://github.com/jhonatasrm/exemplo-player-de-musica/blob/master/LICENSE)
+### Licença
+Este repositório está disponível sob a licença [Mozilla Public License, version 2.0](https://github.com/jhonatasrm/exemplo-player-de-musica/blob/master/LICENSE)
