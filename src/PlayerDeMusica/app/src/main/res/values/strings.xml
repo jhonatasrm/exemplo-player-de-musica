@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Player de Música</string>
+    <string name="title_home"></string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="stop"></string>
+    <string name="pause"></string>
+    <string name="avancar"></string>
+    <string name="voltar"></string>
+    <string name="play"></string>
+    <string name="info">info</string>
+</resources>
