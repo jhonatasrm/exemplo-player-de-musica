@@ -10,6 +10,7 @@ Android 4.4 KitKat
 * Biblioteca Media Player 
 * Biblioteca Audio Manager para gerenciar o volume
 * Array para apresentação de músicas, capa, autor e título
+* Criação de ícone personalizado
 * Uso de gradient no background do aplicativo
 * Botão para uma Activity com mais informações a respeito da música
 
