@@ -15,3 +15,6 @@ Android 4.4 KitKat
 
 
 ![player_de_musica](screenshot.jpg)
+
+### License
+This repository is available under the [Mozilla Public License, version 2.0](https://github.com/jhonatasrm/exemplo-player-de-musica/blob/master/LICENSE)
