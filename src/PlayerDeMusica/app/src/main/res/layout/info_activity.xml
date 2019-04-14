@@ -11,4 +11,26 @@
         android:layout_height="wrap_content"
         app:theme="@style/ToolbarTheme" />
 
+    <EditText
+        android:id="@+id/musica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/banda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/ano"
+        android:inputType="number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+
 </LinearLayout>

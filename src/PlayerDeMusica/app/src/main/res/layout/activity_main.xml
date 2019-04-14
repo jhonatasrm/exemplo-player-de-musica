@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints"/>
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/musica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,10 +27,10 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover" />
+        app:layout_constraintTop_toBottomOf="@+id/capa" />
 
     <TextView
-        android:id="@+id/autor"
+        android:id="@+id/banda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,10 +41,24 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo" />
+        app:layout_constraintTop_toBottomOf="@+id/musica" />
+
+    <TextView
+        android:id="@+id/ano"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:text="1980"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banda" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/volumeMenos"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
@@ -55,7 +69,7 @@
         tools:ignore="ContentDescription,MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/volumeMais"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="36dp"
@@ -66,7 +80,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/capa"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
@@ -89,9 +103,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/volumeMais"
         app:layout_constraintHorizontal_bias="0.777"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/volumeMenos" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
