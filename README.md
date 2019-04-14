@@ -18,8 +18,7 @@ Android 4.4 KitKat
 
 
 
-<img src="screenshot1.jpg" alt="screenshot" width="200" height="400"/>
-<img src="screenshot2.jpg" alt="screenshot" width="200" height="400"/>
+<img src="screenshot1.jpg" alt="screenshot" width="200" height="400"/>  <img src="screenshot2.jpg" alt="screenshot" width="200" height="400"/>
 
 ### Licença
 Este repositório está disponível sob a licença [Mozilla Public License, version 2.0](https://github.com/jhonatasrm/exemplo-player-de-musica/blob/master/LICENSE)
