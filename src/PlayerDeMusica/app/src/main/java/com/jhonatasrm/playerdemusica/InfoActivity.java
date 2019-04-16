@@ -23,8 +23,8 @@ public class InfoActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = new Intent();
         intent = getIntent();
@@ -34,23 +34,31 @@ public class InfoActivity extends AppCompatActivity {
         banda.setText(intent.getStringExtra("banda"));
         ano.setText((intent.getStringExtra("ano")));
         posicao = intent.getIntExtra("posicao", 0);
+
     }
 
-    public void init(){
+    public void init() {
         banda = findViewById(R.id.banda);
         musica = findViewById(R.id.musica);
         ano = findViewById(R.id.ano);
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                startActivity(new Intent(this, MainActivity.class));
-                this.finish();
-                return true;
+        switch (item.getItemId()) {
             case R.id.alterar:
-                alterar();
+                Intent intent = new Intent();
+                intent.putExtra("musica", musica.getText().toString());
+                intent.putExtra("ano", ano.getText().toString());
+                intent.putExtra("banda", banda.getText().toString());
+                intent.putExtra("posicao", posicao);
+                setResult(RESULT_OK, intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -63,12 +71,13 @@ public class InfoActivity extends AppCompatActivity {
         return true;
     }
 
-    public void alterar(){
-        MainActivity main = new MainActivity();
-        String bandaInfo = banda.getText().toString();
-        String musicaInfo = musica.getText().toString();
-        String anoInfo = ano.getText().toString();
-        main.mudarValores(bandaInfo, musicaInfo, anoInfo, posicao);
-        this.finish();
+    public void alterar() {
+        Intent intent = new Intent();
+        intent.putExtra("musica", musica.getText().toString());
+        intent.putExtra("ano", ano.getText().toString());
+        intent.putExtra("banda", banda.getText().toString());
+        intent.putExtra("posicao", posicao);
+        startActivityForResult(intent, 1);
+        finish();
     }
 }

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/ToolbarTheme"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/musica"
@@ -23,8 +23,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/back_in_black"
-        android:textSize="30sp"
         android:textColor="@color/colorWhite"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/capa" />
@@ -36,8 +36,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/colorWhite"
         android:text="@string/ac_dc"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,8 +61,8 @@
         android:id="@+id/volumeMenos"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="72dp"
         android:src="@drawable/less"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,8 +72,8 @@
         android:id="@+id/volumeMais"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="72dp"
         android:src="@drawable/plus"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,14 +97,13 @@
 
     <SeekBar
         android:id="@+id/seekbar_audio"
-        android:layout_width="227dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="78dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toStartOf="@+id/volumeMais"
-        app:layout_constraintHorizontal_bias="0.777"
         app:layout_constraintStart_toEndOf="@+id/volumeMenos" />
 
     <android.support.design.widget.BottomNavigationView
