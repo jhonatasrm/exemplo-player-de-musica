@@ -3,8 +3,8 @@
 # Exemplo player de música
 Um exemplo de um simples aplicativo player de música para Android.
 
-## APK Versão Mínima
-Android 4.4 KitKat
+## Android Versão Mínima
+Android 4.4 KitKat (API Level 19)
 
 ## Uso de seguintes recursos
 * Biblioteca Media Player 
