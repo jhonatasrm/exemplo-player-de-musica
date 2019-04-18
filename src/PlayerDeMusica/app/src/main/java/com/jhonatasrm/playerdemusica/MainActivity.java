@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         initArrayList();
         initNavigationAndToolbar();
         init();
+
         mediaPlayer = MediaPlayer.create(this, musicas[i]);
         final AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int volume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -224,41 +225,5 @@ public class MainActivity extends AppCompatActivity {
         musicaBandaAno.add(new MusicaBandaAno("Highway to Hell", "AC/DC", "1979"));
         musicaBandaAno.add(new MusicaBandaAno("Stairway to Heaven", "Led Zeppelin", "1971"));
         musicaBandaAno.add(new MusicaBandaAno("Thunderstruck", "AC/DC", "1990"));
-    }
-}
-
-class MusicaBandaAno {
-    private String musica;
-    private String banda;
-    private String ano;
-
-    MusicaBandaAno(String musica, String banda, String ano) {
-        this.setAno(ano);
-        this.setMusica(musica);
-        this.setBanda(banda);
-    }
-
-    String getMusica() {
-        return musica;
-    }
-
-    private void setMusica(String musica) {
-        this.musica = musica;
-    }
-
-    String getBanda() {
-        return banda;
-    }
-
-    private void setBanda(String banda) {
-        this.banda = banda;
-    }
-
-    String getAno() {
-        return ano;
-    }
-
-    private void setAno(String ano) {
-        this.ano = ano;
     }
 }
