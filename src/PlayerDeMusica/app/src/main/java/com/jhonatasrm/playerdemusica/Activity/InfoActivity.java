@@ -1,4 +1,4 @@
-package com.jhonatasrm.playerdemusica;
+package com.jhonatasrm.playerdemusica.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.jhonatasrm.playerdemusica.R;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class InfoActivity extends AppCompatActivity {
 
         musica.setText(intent.getStringExtra("musica"));
         banda.setText(intent.getStringExtra("banda"));
-        ano.setText((intent.getStringExtra("ano")));
+        ano.setText((String.valueOf(intent.getIntExtra("ano", 0))));
         posicao = intent.getIntExtra("posicao", 0);
 
     }
@@ -51,7 +53,7 @@ public class InfoActivity extends AppCompatActivity {
             case R.id.alterar:
                 Intent intent = new Intent();
                 intent.putExtra("musica", musica.getText().toString());
-                intent.putExtra("ano", ano.getText().toString());
+                intent.putExtra("ano", String.valueOf(ano.getText()));
                 intent.putExtra("banda", banda.getText().toString());
                 intent.putExtra("posicao", posicao);
                 setResult(RESULT_OK, intent);
@@ -71,7 +73,7 @@ public class InfoActivity extends AppCompatActivity {
     public void alterar() {
         Intent intent = new Intent();
         intent.putExtra("musica", musica.getText().toString());
-        intent.putExtra("ano", ano.getText().toString());
+        intent.putExtra("ano", String.valueOf(ano.getText()));
         intent.putExtra("banda", banda.getText().toString());
         intent.putExtra("posicao", posicao);
         startActivityForResult(intent, 1);

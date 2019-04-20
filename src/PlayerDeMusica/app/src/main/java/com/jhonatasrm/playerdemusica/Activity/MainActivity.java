@@ -1,4 +1,4 @@
-package com.jhonatasrm.playerdemusica;
+package com.jhonatasrm.playerdemusica.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,7 +19,12 @@ import android.media.AudioManager;
 import android.content.Context;
 import android.widget.TextView;
 
+import com.jhonatasrm.playerdemusica.Model.MusicaBandaAno;
+import com.jhonatasrm.playerdemusica.R;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,24 +34,24 @@ public class MainActivity extends AppCompatActivity {
     private ImageView capaAlbum;
     public TextView titulo;
     public TextView anoMusica;
+    public int musicaTocando;
+    public int capaDoAlbum;
     public int i = 0;
+    int anoA;
     String bandaA;
-    String anoA;
     String musicaA;
-    ArrayList<MusicaBandaAno> musicaBandaAno = new ArrayList<>();
-    int[] musicas = new int[]{R.raw.back_in_black, R.raw.here_i_go_again, R.raw.high_way_to_hell, R.raw.stairway_to_heaven, R.raw.thunderstruck};
-    int[] capa = new int[]{R.drawable.ac_dc, R.drawable.white_snake, R.drawable.ac_dc, R.drawable.led_zeppelin, R.drawable.ac_dc};
+    List<MusicaBandaAno> musicaBandaAno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initArrayList();
+        musicaBandaAno = initList();
         initNavigationAndToolbar();
         init();
 
-        mediaPlayer = MediaPlayer.create(this, musicas[i]);
+        mediaPlayer = MediaPlayer.create(this, musicaBandaAno.get(i).getMusicaTocar());
         final AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int volume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         seekBar.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY));
         seekBar.getThumb().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
-        seekBar.setProgress(volume * 100);
+        seekBar.setProgress(volume);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -105,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         autor.setText(musicaBandaAno.get(i).getBanda());
         titulo.setText(musicaBandaAno.get(i).getMusica());
-        capaAlbum.setImageResource(capa[i]);
-        anoMusica.setText(musicaBandaAno.get(i).getAno());
+        capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
+        anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
         mediaPlayer.start();
     }
 
@@ -165,18 +170,19 @@ public class MainActivity extends AppCompatActivity {
     public void voltar() {
         mediaPlayer.stop();
         if (i == 0) {
-            mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+            mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
             autor.setText(musicaBandaAno.get(i).getBanda());
             titulo.setText(musicaBandaAno.get(i).getMusica());
-            capaAlbum.setImageResource(capa[i]);
-            anoMusica.setText(musicaBandaAno.get(i).getAno());
+            capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
+            anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
+            i = 4;
         } else {
             i--;
-            mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+            mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
             autor.setText(musicaBandaAno.get(i).getBanda());
             titulo.setText(musicaBandaAno.get(i).getMusica());
-            capaAlbum.setImageResource(capa[i]);
-            anoMusica.setText(musicaBandaAno.get(i).getAno());
+            capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
+            anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
         }
     }
 
@@ -187,11 +193,11 @@ public class MainActivity extends AppCompatActivity {
         if (i == musicaBandaAno.size()) {
             i = 0;
         }
-        mediaPlayer = MediaPlayer.create(MainActivity.this, musicas[i]);
+        mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
         autor.setText(musicaBandaAno.get(i).getBanda());
         titulo.setText(musicaBandaAno.get(i).getMusica());
-        capaAlbum.setImageResource(capa[i]);
-        anoMusica.setText(musicaBandaAno.get(i).getAno());
+        capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
+        anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
     }
 
     public void passaInformacoes() {
@@ -203,27 +209,28 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bandaA = data.getExtras().getString("banda");
-        anoA = data.getExtras().getString("ano");
+        anoA = Integer.valueOf(data.getExtras().getString("ano"));
         musicaA = data.getExtras().getString("musica");
         i = data.getExtras().getInt("posicao", 1);
+        musicaTocando = musicaBandaAno.get(i).getMusicaTocar();
+        capaDoAlbum = musicaBandaAno.get(i).getCapaAlbum();
         if (resultCode == -1) {
-            musicaBandaAno.set(i, new MusicaBandaAno(musicaA, bandaA, anoA));
+            musicaBandaAno.set(i, new MusicaBandaAno(musicaA, bandaA, anoA, musicaTocando, capaDoAlbum));
             autor.setText(bandaA);
-            anoMusica.setText(anoA);
+            anoMusica.setText(String.valueOf(anoA));
             titulo.setText(musicaA);
         }
     }
 
-    public void initArrayList() {
-        musicaBandaAno.add(new MusicaBandaAno("Back In Black", "AC/DC", "1980"));
-        musicaBandaAno.add(new MusicaBandaAno("Here I go Again", "White Snake", "1982"));
-        musicaBandaAno.add(new MusicaBandaAno("Highway to Hell", "AC/DC", "1979"));
-        musicaBandaAno.add(new MusicaBandaAno("Stairway to Heaven", "Led Zeppelin", "1971"));
-        musicaBandaAno.add(new MusicaBandaAno("Thunderstruck", "AC/DC", "1990"));
+    public List<MusicaBandaAno> initList() {
+        return new ArrayList<>(Arrays.asList(new MusicaBandaAno("Back In Black", "AC/DC", 1980, R.raw.back_in_black, R.drawable.ac_dc),
+                new MusicaBandaAno("Here I go Again", "White Snake", 1982, R.raw.here_i_go_again, R.drawable.white_snake),
+                new MusicaBandaAno("Highway to Hell", "AC/DC", 1979, R.raw.high_way_to_hell, R.drawable.ac_dc),
+                new MusicaBandaAno("Stairway to Heaven", "Led Zeppelin", 1971, R.raw.stairway_to_heaven, R.drawable.led_zeppelin),
+                new MusicaBandaAno("Thunderstruck", "AC/DC", 1990, R.raw.stairway_to_heaven, R.drawable.ac_dc)));
     }
 }
