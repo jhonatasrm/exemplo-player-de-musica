@@ -19,7 +19,7 @@ import android.media.AudioManager;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.jhonatasrm.playerdemusica.Model.MusicaBandaAno;
+import com.jhonatasrm.playerdemusica.Model.ListaMusicasBandas;
 import com.jhonatasrm.playerdemusica.R;
 
 import java.util.ArrayList;
@@ -40,18 +40,18 @@ public class MainActivity extends AppCompatActivity {
     int anoA;
     String bandaA;
     String musicaA;
-    List<MusicaBandaAno> musicaBandaAno;
+    List<ListaMusicasBandas> listaMusicasBandas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        musicaBandaAno = initList();
+        listaMusicasBandas = initList();
         initNavigationAndToolbar();
         init();
 
-        mediaPlayer = MediaPlayer.create(this, musicaBandaAno.get(i).getMusicaTocar());
+        mediaPlayer = MediaPlayer.create(this, listaMusicasBandas.get(i).getMusicaTocar());
         final AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int volume = amanager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
     public void init() {
         autor = findViewById(R.id.banda);
         titulo = findViewById(R.id.musica);
-        autor.setText(musicaBandaAno.get(i).getBanda());
-        titulo.setText(musicaBandaAno.get(i).getMusica());
+        autor.setText(listaMusicasBandas.get(i).getBanda());
+        titulo.setText(listaMusicasBandas.get(i).getMusica());
         capaAlbum = findViewById(R.id.capa);
         anoMusica = findViewById(R.id.ano);
     }
@@ -108,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        autor.setText(musicaBandaAno.get(i).getBanda());
-        titulo.setText(musicaBandaAno.get(i).getMusica());
-        capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
-        anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
+        autor.setText(listaMusicasBandas.get(i).getBanda());
+        titulo.setText(listaMusicasBandas.get(i).getMusica());
+        capaAlbum.setImageResource(listaMusicasBandas.get(i).getCapaAlbum());
+        anoMusica.setText(String.valueOf(listaMusicasBandas.get(i).getAno()));
         mediaPlayer.start();
     }
 
@@ -170,19 +170,19 @@ public class MainActivity extends AppCompatActivity {
     public void voltar() {
         mediaPlayer.stop();
         if (i == 0) {
-            mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
-            autor.setText(musicaBandaAno.get(i).getBanda());
-            titulo.setText(musicaBandaAno.get(i).getMusica());
-            capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
-            anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
+            mediaPlayer = MediaPlayer.create(MainActivity.this, listaMusicasBandas.get(i).getMusicaTocar());
+            autor.setText(listaMusicasBandas.get(i).getBanda());
+            titulo.setText(listaMusicasBandas.get(i).getMusica());
+            capaAlbum.setImageResource(listaMusicasBandas.get(i).getCapaAlbum());
+            anoMusica.setText(String.valueOf(listaMusicasBandas.get(i).getAno()));
             i = 4;
         } else {
             i--;
-            mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
-            autor.setText(musicaBandaAno.get(i).getBanda());
-            titulo.setText(musicaBandaAno.get(i).getMusica());
-            capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
-            anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
+            mediaPlayer = MediaPlayer.create(MainActivity.this, listaMusicasBandas.get(i).getMusicaTocar());
+            autor.setText(listaMusicasBandas.get(i).getBanda());
+            titulo.setText(listaMusicasBandas.get(i).getMusica());
+            capaAlbum.setImageResource(listaMusicasBandas.get(i).getCapaAlbum());
+            anoMusica.setText(String.valueOf(listaMusicasBandas.get(i).getAno()));
         }
     }
 
@@ -190,21 +190,21 @@ public class MainActivity extends AppCompatActivity {
     public void avancar() {
         mediaPlayer.stop();
         i++;
-        if (i == musicaBandaAno.size()) {
+        if (i == listaMusicasBandas.size()) {
             i = 0;
         }
-        mediaPlayer = MediaPlayer.create(MainActivity.this, musicaBandaAno.get(i).getMusicaTocar());
-        autor.setText(musicaBandaAno.get(i).getBanda());
-        titulo.setText(musicaBandaAno.get(i).getMusica());
-        capaAlbum.setImageResource(musicaBandaAno.get(i).getCapaAlbum());
-        anoMusica.setText(String.valueOf(musicaBandaAno.get(i).getAno()));
+        mediaPlayer = MediaPlayer.create(MainActivity.this, listaMusicasBandas.get(i).getMusicaTocar());
+        autor.setText(listaMusicasBandas.get(i).getBanda());
+        titulo.setText(listaMusicasBandas.get(i).getMusica());
+        capaAlbum.setImageResource(listaMusicasBandas.get(i).getCapaAlbum());
+        anoMusica.setText(String.valueOf(listaMusicasBandas.get(i).getAno()));
     }
 
     public void passaInformacoes() {
         Intent intent = new Intent(this, InfoActivity.class);
-        intent.putExtra("banda", musicaBandaAno.get(i).getBanda());
-        intent.putExtra("musica", musicaBandaAno.get(i).getMusica());
-        intent.putExtra("ano", musicaBandaAno.get(i).getAno());
+        intent.putExtra("banda", listaMusicasBandas.get(i).getBanda());
+        intent.putExtra("musica", listaMusicasBandas.get(i).getMusica());
+        intent.putExtra("ano", listaMusicasBandas.get(i).getAno());
         intent.putExtra("posicao", i);
         startActivityForResult(intent, 1);
     }
@@ -216,21 +216,21 @@ public class MainActivity extends AppCompatActivity {
         anoA = Integer.valueOf(data.getExtras().getString("ano"));
         musicaA = data.getExtras().getString("musica");
         i = data.getExtras().getInt("posicao", 1);
-        musicaTocando = musicaBandaAno.get(i).getMusicaTocar();
-        capaDoAlbum = musicaBandaAno.get(i).getCapaAlbum();
+        musicaTocando = listaMusicasBandas.get(i).getMusicaTocar();
+        capaDoAlbum = listaMusicasBandas.get(i).getCapaAlbum();
         if (resultCode == -1) {
-            musicaBandaAno.set(i, new MusicaBandaAno(musicaA, bandaA, anoA, musicaTocando, capaDoAlbum));
+            listaMusicasBandas.set(i, new ListaMusicasBandas(musicaA, bandaA, anoA, musicaTocando, capaDoAlbum));
             autor.setText(bandaA);
             anoMusica.setText(String.valueOf(anoA));
             titulo.setText(musicaA);
         }
     }
 
-    public List<MusicaBandaAno> initList() {
-        return new ArrayList<>(Arrays.asList(new MusicaBandaAno("Back In Black", "AC/DC", 1980, R.raw.back_in_black, R.drawable.ac_dc),
-                new MusicaBandaAno("Here I go Again", "White Snake", 1982, R.raw.here_i_go_again, R.drawable.white_snake),
-                new MusicaBandaAno("Highway to Hell", "AC/DC", 1979, R.raw.high_way_to_hell, R.drawable.ac_dc),
-                new MusicaBandaAno("Stairway to Heaven", "Led Zeppelin", 1971, R.raw.stairway_to_heaven, R.drawable.led_zeppelin),
-                new MusicaBandaAno("Thunderstruck", "AC/DC", 1990, R.raw.stairway_to_heaven, R.drawable.ac_dc)));
+    public List<ListaMusicasBandas> initList() {
+        return new ArrayList<>(Arrays.asList(new ListaMusicasBandas("Back In Black", "AC/DC", 1980, R.raw.back_in_black, R.drawable.ac_dc),
+                new ListaMusicasBandas("Here I go Again", "White Snake", 1982, R.raw.here_i_go_again, R.drawable.white_snake),
+                new ListaMusicasBandas("Highway to Hell", "AC/DC", 1979, R.raw.high_way_to_hell, R.drawable.ac_dc),
+                new ListaMusicasBandas("Stairway to Heaven", "Led Zeppelin", 1971, R.raw.stairway_to_heaven, R.drawable.led_zeppelin),
+                new ListaMusicasBandas("Thunderstruck", "AC/DC", 1990, R.raw.stairway_to_heaven, R.drawable.ac_dc)));
     }
 }

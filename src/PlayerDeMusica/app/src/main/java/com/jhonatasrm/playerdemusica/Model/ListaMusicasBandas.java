@@ -1,6 +1,6 @@
 package com.jhonatasrm.playerdemusica.Model;
 
-public class MusicaBandaAno {
+public class ListaMusicasBandas {
 
     String musica;
     String banda;
@@ -8,7 +8,7 @@ public class MusicaBandaAno {
     int musicaTocar;
     int capaAlbum;
 
-    public MusicaBandaAno(String musica, String banda, int ano, int musicaTocar, int capaAlbum) {
+    public ListaMusicasBandas(String musica, String banda, int ano, int musicaTocar, int capaAlbum) {
         this.ano = ano;
         this.musica = musica;
         this.banda = banda;
