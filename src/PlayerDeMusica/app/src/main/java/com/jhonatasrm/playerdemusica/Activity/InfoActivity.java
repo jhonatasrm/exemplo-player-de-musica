@@ -36,6 +36,7 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
+   // inicializa os findViewById separados do onCreate
     public void init() {
         banda = findViewById(R.id.banda);
         musica = findViewById(R.id.musica);
@@ -47,6 +48,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    // quando clicado em "Alterar" é enviada uma intent para a MainActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -64,6 +66,7 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
+    // inicializa o menu na Toolbar com a opção "Alterar"
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_alterar, menu);
