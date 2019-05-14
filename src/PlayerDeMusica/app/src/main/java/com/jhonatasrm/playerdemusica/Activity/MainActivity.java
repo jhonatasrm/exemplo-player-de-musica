@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // inicializa os findViewById em um método separado
     public void init() {
         autor = findViewById(R.id.banda);
         titulo = findViewById(R.id.musica);
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         anoMusica = findViewById(R.id.ano);
     }
 
+    // salva a atual posição da música selecionada
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
@@ -93,18 +95,22 @@ public class MainActivity extends AppCompatActivity {
         outState.putLong("posicaoSalva", mediaPlayer.getCurrentPosition());
     }
 
+    // recupera o estado anterior que foi salvo com o método onSaveInstanceState
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onRestoreInstanceState(savedInstanceState, persistentState);
         i = savedInstanceState.getInt("posicaoAlbum");
     }
 
+    // pausa a música quando o método onPause é chamado no ciclo de vida da Activity
     @Override
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
     }
 
+    /* continua a tocar a música quando o método onRestart é chamado no ciclo de vida da Activity usando a posição salva
+     no onSaveInstanceState (i) */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -115,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
+    // inicializa a Toolbar com as opções de cor do background e do texto
     public void initNavigationAndToolbar() {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -124,12 +131,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    // inicializa o menu criado
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_info, menu);
         return true;
     }
 
+    /* verifica qual a opção selecionada.. se a opção com o id R.id.info no menu é tocado, então é chamado o 
+    método passaInformações, retornando "true" (dizendo que já foi tratado o toque)*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -141,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* escuta o NavigationView na parte inferior da tela do aplicativo, respondendo conforme a opção tocada e retornando "true",
+    dizendo que o toque no menu já foi tratado */
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -167,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    // método que trata quando a opção voltar é clicada no NavigationView
     public void voltar() {
         mediaPlayer.stop();
         if (i == 0) {
@@ -186,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // método que trata quando a opção avançar é clicada no NavigationView
     @SuppressLint("RestrictedApi")
     public void avancar() {
         mediaPlayer.stop();
@@ -200,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         anoMusica.setText(String.valueOf(listaMusicasBandas.get(i).getAno()));
     }
 
+    // método que ira passar as informações da música atual no Array
     public void passaInformacoes() {
         Intent intent = new Intent(this, InfoActivity.class);
         intent.putExtra("banda", listaMusicasBandas.get(i).getBanda());
@@ -209,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+    // esse método irá tratar as informações recebidas da InfoActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -225,7 +241,8 @@ public class MainActivity extends AppCompatActivity {
             titulo.setText(musicaA);
         }
     }
-
+    
+    // método que irá inicializar: nome da música, autor, ano, música em si (mp3) e capa do album na lista 
     public List<ListaMusicasBandas> initList() {
         return new ArrayList<>(Arrays.asList(new ListaMusicasBandas("Back In Black", "AC/DC", 1980, R.raw.back_in_black, R.drawable.ac_dc),
                 new ListaMusicasBandas("Here I go Again", "White Snake", 1982, R.raw.here_i_go_again, R.drawable.white_snake),
