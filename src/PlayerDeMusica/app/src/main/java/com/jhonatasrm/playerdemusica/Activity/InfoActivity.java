@@ -73,13 +73,13 @@ public class InfoActivity extends AppCompatActivity {
         return true;
     }
 
-    public void alterar() {
-        Intent intent = new Intent();
-        intent.putExtra("musica", musica.getText().toString());
-        intent.putExtra("ano", String.valueOf(ano.getText()));
-        intent.putExtra("banda", banda.getText().toString());
-        intent.putExtra("posicao", posicao);
-        startActivityForResult(intent, 1);
-        finish();
-    }
+//     public void alterar() {
+//         Intent intent = new Intent();
+//         intent.putExtra("musica", musica.getText().toString());
+//         intent.putExtra("ano", String.valueOf(ano.getText()));
+//         intent.putExtra("banda", banda.getText().toString());
+//         intent.putExtra("posicao", posicao);
+//         startActivityForResult(intent, 1);
+//         finish();
+//     }
 }
